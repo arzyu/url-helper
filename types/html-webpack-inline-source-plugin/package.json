@@ -1,0 +1,10 @@
+{
+  "name": "@types/html-webpack-inline-source-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "types": "index.d.ts",
+  "dependencies": {
+    "@types/webpack": "*"
+  },
+  "license": "MIT"
+}
