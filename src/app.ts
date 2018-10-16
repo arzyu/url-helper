@@ -47,7 +47,7 @@ const getStoreUrl = (appId: string): Promise<string> => new Promise((resolve, re
 });
 
 const { hash } = location;
-const matches = hash.match(/^#\/app\/([^\/]+)$/);
+const matches = hash.match(/^#(org\.arzx\.[^\/]+)$/);
 
 if (matches) {
   const appId = matches[1];
