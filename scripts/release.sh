@@ -12,7 +12,7 @@ current_branch=${current_branch:-master}
 tmp_branch="release-www"
 
 git checkout -B $tmp_branch master
-git add -f www/index.html
+git add -f www/app.html
 git commit -m "scripts(release): generate gh-pages"
 
 if [[ -n "$(git rev-parse --verify --quiet gh-pages)" ]]; then

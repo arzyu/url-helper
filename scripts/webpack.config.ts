@@ -18,7 +18,7 @@ const config: webpack.Configuration = {
   mode: isDev ? "development" : "production",
   devtool: isDev ? "cheap-module-eval-source-map" : false,
   entry: {
-    router: "./index.ts"
+    router: "./app.ts"
   },
   output: {
     filename: "[name].[hash:7].js",
@@ -38,8 +38,8 @@ const config: webpack.Configuration = {
   plugins: [
     new CleanWebpackPlugin(dist, { root }),
     new HtmlWebpackPlugin({
-      template: "index.ejs",
-      filename: "index.html",
+      template: "app.ejs",
+      filename: "app.html",
       inlineSource: "\.js$"
     }),
     new HtmlWebpackInlineSourcePlugin()
