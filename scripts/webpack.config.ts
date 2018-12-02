@@ -4,6 +4,7 @@ import webpack from "webpack";
 import CleanWebpackPlugin from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import HtmlWebpackInlineSourcePlugin from "html-webpack-inline-source-plugin";
+import TerserWebpackPlugin from "terser-webpack-plugin";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -16,6 +17,17 @@ const config: webpack.Configuration = {
     extensions: [".ts", ".js"]
   },
   mode: isDev ? "development" : "production",
+  optimization: {
+    minimizer: [
+      new TerserWebpackPlugin({
+        terserOptions: {
+          output: {
+            comments: false
+          }
+        }
+      })
+    ]
+  },
   devtool: isDev ? "cheap-module-eval-source-map" : false,
   entry: {
     app: "./app.ts"
