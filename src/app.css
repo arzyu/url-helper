@@ -1,21 +1,58 @@
 :root {
   --button-height: 3rem;
 }
+
+html, body, .root, .app {
+  height: 100%;
+  margin: 0;
+}
+
 .app {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin: 2rem 0 0;
 
-  & > img {
+  & h1 {
+    font-family: monospace;
+  }
+
+  & .logo {
     order: -1;
-    width: 40%;
+    height: 30%;
+    margin-top: 5%;
+
+    & img {
+      max-height: 100%;
+      vertical-align: middle;
+    }
+  }
+
+  & ul {
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+
+    & li {
+      margin: 0.75rem 0 0;
+    }
+  }
+
+  & .platform::before {
+    font-family: monospace;
+  }
+
+  & .android::before {
+    content: "Android"
+  }
+
+  & .ios::before {
+    content: "iOS"
   }
 
   & a {
     display: inline-block;
-    margin: 0.5rem;
     vertical-align: middle;
 
     & img {

@@ -2,7 +2,7 @@
   "name": "url-helper",
   "description": "URL Helper",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --config scripts/webpack.config.ts --watch",
+    "start": "NODE_ENV=development webpack-dev-server --config scripts/webpack.config.ts --host 0.0.0.0 --watch",
     "build": "NODE_ENV=production webpack --config scripts/webpack.config.ts",
     "release": "npm run build && scripts/release.sh"
   },
@@ -30,5 +30,9 @@
     "type": "git",
     "url": "https://github.com/arzyu/url-helper"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@types/mustache": "^0.8.32",
+    "mustache": "^3.0.1"
+  }
 }

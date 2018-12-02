@@ -1,3 +1,5 @@
+import Mustache from "mustache";
+
 import apps from "./apps.json";
 import appStoreBadge from "./badge.app-store.svg";
 import googlePlayBadge from "./badge.google-play.svg";
@@ -40,40 +42,33 @@ const createLinkImage = (link: { href: string, src: string, alt: string }) => {
 };
 
 const render = (app: App) => {
-  const { name, icon, apkUrl, playStoreUrl, appStoreUrl } = app;
   const template = `
     <div class="app">
-      <h1>${name}</h1>
-      <img src="${icon}" alt="${name}">
-      <div class="android"></div>
+      <h1>{{name}}</h1>
+      <div class="logo"><img src="{{icon}}" alt="{{name}}"></div>
+      {{#android}}
+      <ul class="platform android">
+        {{#playStoreUrl}}
+        <li><a href="{{playStoreUrl}}"><img src="${googlePlayBadge}" alt="Download from Google Play"></a></li>
+        {{/playStoreUrl}}
+        {{#apkUrl}}<li><a href="{{apkUrl}}">Download .apk file</a></li>{{/apkUrl}}
+      </ul>
+      {{/android}}
+      {{#ios}}
+      <ul class="platform ios">
+        {{#appStoreUrl}}
+        <li><a href="{{appStoreUrl}}"><img src="${appStoreBadge}" alt="Download from App Store"></a></li>
+        {{/appStoreUrl}}
+      </ul>
+      {{/ios}}
     </div>
   `;
-  const container = createElementFromHtml(template.trim()) as HTMLDivElement;
+  const view = Object.assign({}, app, {
+    android: () => Boolean(app.apkUrl || app.playStoreUrl),
+    ios: () => Boolean(app.appStoreUrl)
+  });
 
-  if (playStoreUrl) {
-    (container.querySelector(".android") as HTMLDivElement).appendChild(createLinkImage({
-      href: playStoreUrl,
-      src: googlePlayBadge,
-      alt: "Download from Google Play"
-    }));
-  }
-
-  if (apkUrl) {
-    (container.querySelector(".android") as HTMLDivElement).appendChild(createLinkText({
-      href: apkUrl,
-      title: "Download .apk file"
-    }));
-  }
-
-  if (appStoreUrl) {
-    container.appendChild(createLinkImage({
-      href: appStoreUrl,
-      src: appStoreBadge,
-      alt: "Download from App Store"
-    }));
-  }
-
-  return container;
+  return Mustache.render(template, view);
 };
 
 const { hash } = location;
@@ -85,6 +80,6 @@ if (matches) {
 
   if (app) {
     document.title = app.name;
-    (document.querySelector(".root") as HTMLDivElement).appendChild(render(app));
+    (document.querySelector(".root") as HTMLDivElement).innerHTML = render(app);
   }
 }
