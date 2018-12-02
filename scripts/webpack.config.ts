@@ -18,7 +18,7 @@ const config: webpack.Configuration = {
   mode: isDev ? "development" : "production",
   devtool: isDev ? "cheap-module-eval-source-map" : false,
   entry: {
-    router: "./app.ts"
+    app: "./app.ts"
   },
   output: {
     filename: "[name].[hash:7].js",
