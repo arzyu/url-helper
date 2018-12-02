@@ -1,6 +1,6 @@
 import { resolve } from "path";
 
-import * as webpack from "webpack";
+import webpack from "webpack";
 import CleanWebpackPlugin from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import HtmlWebpackInlineSourcePlugin from "html-webpack-inline-source-plugin";
@@ -31,6 +31,41 @@ const config: webpack.Configuration = {
         exclude: /node_modules/,
         use: [
           { loader: "awesome-typescript-loader" }
+        ]
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+          { loader: "style-loader" },
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              module: true
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              ident: "postcss",
+              plugins: () => [
+                require("postcss-preset-env")({
+                  stage: 3,
+                  features: {
+                    "nesting-rules": true
+                  }
+                })
+              ]
+            }
+          }
+        ]
+      },
+      {
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        use: [
+          { loader: "url-loader" }
         ]
       }
     ]

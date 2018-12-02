@@ -1,0 +1,40 @@
+:root {
+  --button-height: 3rem;
+}
+.app {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 2rem 0 0;
+
+  & > img {
+    order: -1;
+    width: 40%;
+  }
+
+  & a {
+    display: inline-block;
+    margin: 0.5rem;
+    vertical-align: middle;
+
+    & img {
+      height: var(--button-height);
+      vertical-align: middle;
+    }
+  }
+
+  & a[href*=".apk"] {
+    box-sizing: border-box;
+    height: var(--button-height);
+    padding: 0 0.5rem 0 2.4rem;
+    line-height: var(--button-height);
+    text-decoration: none;
+    border: solid 1px #ccc;
+    border-radius: 0.5rem;
+    background: #000 url(./badge.android.svg) no-repeat;
+    background-size: 1.6rem;
+    background-position: 0.5rem center;
+    color: #fff;
+  }
+}

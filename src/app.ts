@@ -1,58 +1,90 @@
-enum Platfrom {
-  iOS,
-  Android,
-  AnZhuo
-}
+import apps from "./apps.json";
+import appStoreBadge from "./badge.app-store.svg";
+import googlePlayBadge from "./badge.google-play.svg";
+import "./app.css";
 
-// TODO: replace the prefix urls
-const storeUrlPrefix = {
-  [Platfrom.iOS]: "https://play.google.com/store/apps/details?iOS&id=",
-  [Platfrom.Android]: "https://play.google.com/store/apps/details?id=",
-  [Platfrom.AnZhuo]: "https://play.google.com/store/apps/details?CN&id="
+type App = {
+  name: string;
+  icon: string;
+  apkUrl?: string;
+  playStoreUrl?: string;
+  appStoreUrl?: string;
 };
 
-const storeUrl = (appId: string, platform: Platfrom) => `${storeUrlPrefix[platform]}${appId}`;
+const createElementFromHtml = (html: string) => {
+  const templateElement = document.createElement("template");
+  templateElement.innerHTML = html;
+  return templateElement.content.firstChild;
+};
 
-const testGoogle = (): Promise<boolean> => new Promise((resolve, reject) => {
-  const testImage = new Image();
+const createLinkText = (link: { href: string, title: string }) => {
+  const { title, href } = link;
+  const a = document.createElement("a");
 
-  testImage.onload = () => resolve(true);
-  testImage.onerror = () => resolve(false);
+  a.innerText = title;
+  a.href = href;
 
-  setTimeout(() => resolve(false), 2000);
+  return a;
+};
 
-  testImage.src = "https://youtube.com/favicon.ico";
-});
+const createLinkImage = (link: { href: string, src: string, alt: string }) => {
+  const a = document.createElement("a");
+  const img = document.createElement("img");
 
-const getStoreUrl = (appId: string): Promise<string> => new Promise((resolve, reject) => {
-  const platform = navigator.userAgent.includes("iPhone OS")
-      ? Platfrom.iOS : Platfrom.Android;
+  img.src = link.src;
+  img.alt = link.alt;
+  a.href = link.href;
+  a.appendChild(img);
 
-  if (platform === Platfrom.iOS) {
-    resolve(storeUrl(appId, Platfrom.iOS));
+  return a;
+};
+
+const render = (app: App) => {
+  const { name, icon, apkUrl, playStoreUrl, appStoreUrl } = app;
+  const template = `
+    <div class="app">
+      <h1>${name}</h1>
+      <img src="${icon}" alt="${name}">
+      <div class="android"></div>
+    </div>
+  `;
+  const container = createElementFromHtml(template.trim()) as HTMLDivElement;
+
+  if (playStoreUrl) {
+    (container.querySelector(".android") as HTMLDivElement).appendChild(createLinkImage({
+      href: playStoreUrl,
+      src: googlePlayBadge,
+      alt: "Download from Google Play"
+    }));
   }
 
-  testGoogle()
-    .then(isGoogleAvailable => {
-      if (isGoogleAvailable) {
-        resolve(storeUrl(appId, Platfrom.Android));
-      } else {
-        resolve(storeUrl(appId, Platfrom.AnZhuo));
-      }
-    })
-    .catch(error => {
-      console.error(error);
-      resolve(storeUrl(appId, Platfrom.Android));
-    });
-});
+  if (apkUrl) {
+    (container.querySelector(".android") as HTMLDivElement).appendChild(createLinkText({
+      href: apkUrl,
+      title: "Download .apk file"
+    }));
+  }
+
+  if (appStoreUrl) {
+    container.appendChild(createLinkImage({
+      href: appStoreUrl,
+      src: appStoreBadge,
+      alt: "Download from App Store"
+    }));
+  }
+
+  return container;
+};
 
 const { hash } = location;
-const matches = hash.match(/^#(org\.arzx\.[^\/]+)$/);
+const matches = hash.match(/^#([^\/]+)$/);
 
 if (matches) {
   const appId = matches[1];
+  const app: App = apps[appId];
 
-  getStoreUrl(appId)
-    .then(storeUrl => location.href = storeUrl)
-    .catch(console.error);
+  if (app) {
+    document.title = app.name;
+    (document.querySelector(".root") as HTMLDivElement).appendChild(render(app));
+  }
 }

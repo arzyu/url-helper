@@ -5,7 +5,7 @@
     "strict": true,
     "sourceMap": true,
     "baseUrl": "./",
-    "esModuleInterop": true,
-    "resolveJsonModule": true
+    "outDir": "./www",
+    "esModuleInterop": true
   }
 }
