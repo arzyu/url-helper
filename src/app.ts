@@ -51,7 +51,7 @@ const render = (app: App) => {
         {{#playStoreUrl}}
         <li><a href="{{playStoreUrl}}"><img src="${googlePlayBadge}" alt="Download from Google Play"></a></li>
         {{/playStoreUrl}}
-        {{#apkUrl}}<li><a href="{{apkUrl}}">Download .apk file</a></li>{{/apkUrl}}
+        {{#apkUrl}}<li><a href="{{apkUrl}}">Download <code>.apk</code> file</a></li>{{/apkUrl}}
       </ul>
       {{/android}}
       {{#ios}}
