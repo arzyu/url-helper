@@ -1,8 +1,8 @@
 {
   "org.arzx.x7083": {
     "name": "Bulls & Cows",
-    "icon": "https://gist.githubusercontent.com/arzyu/1266ade5fe6c86632ae9767b9e305b77/raw/9fa0bd7e51403a12b3e5cd162dde7d2958e15740/BullsCows.png",
-    "apkUrl": "https://gist.github.com/arzyu/1266ade5fe6c86632ae9767b9e305b77/raw/09b79139047a5030a0ae44c5dabea310b3c0d126/BullsCows-1.2.1.apk",
+    "icon": "https://gistcdn.githack.com/arzyu/1266ade5fe6c86632ae9767b9e305b77/raw/2bc2aa1666fa512aaf0a5b2d36a7b184bdd0ee74/BullsCows.png",
+    "apkUrl": "https://gistcdn.githack.com/arzyu/1266ade5fe6c86632ae9767b9e305b77/raw/09b79139047a5030a0ae44c5dabea310b3c0d126/BullsCows-1.2.1.apk",
     "playStoreUrl": "https://play.google.com/store/apps/details?id=org.arzx.x7083"
   }
 }
