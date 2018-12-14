@@ -8,7 +8,7 @@ import TerserWebpackPlugin from "terser-webpack-plugin";
 
 const isDev = process.env.NODE_ENV === "development";
 
-const root = resolve(__dirname, "..");
+const root = resolve(__dirname, ".");
 const dist = resolve(root, "www");
 
 const config: webpack.Configuration = {

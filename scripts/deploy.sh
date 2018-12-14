@@ -9,11 +9,11 @@ fi
 current_branch="$(git symbolic-ref --short -q HEAD)"
 current_branch=${current_branch:-master}
 
-tmp_branch="release-www"
+tmp_branch="deploy-www"
 
 git checkout -B $tmp_branch master
 git add -f www/app.html
-git commit -m "scripts(release): generate gh-pages"
+git commit -m "scripts(deploy): generate gh-pages"
 
 if [[ -n "$(git rev-parse --verify --quiet gh-pages)" ]]; then
   git branch -D gh-pages

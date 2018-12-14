@@ -6,6 +6,6 @@
 ## run locally
 npm start
 
-## release gh-pages
-npm run release
+## deploy gh-pages
+npm run deploy
 ```
