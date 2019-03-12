@@ -2,7 +2,7 @@
   "name": "url-helper",
   "description": "URL Helper",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --host 0.0.0.0 --watch",
+    "start": "NODE_ENV=development TS_NODE_FILES=true webpack-dev-server --host 0.0.0.0 --watch",
     "build": "NODE_ENV=production TS_NODE_FILES=true webpack",
     "predeploy": "npm run build && rm www/*.js",
     "deploy": "scripts/deploy.sh"
@@ -29,7 +29,7 @@
     "url-loader": "^1.1.2",
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.2.1"
   },
   "repository": {
     "type": "git",
